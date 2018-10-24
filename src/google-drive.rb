@@ -248,7 +248,7 @@ class Auth
     auth_url = 'https://accounts.google.com/o/oauth2/auth?' + URI.encode_www_form({
       'client_id'       => CLIENT_ID,
       'redirect_uri'    => REDIRECT_URL,
-      'scope'           => 'https://www.googleapis.com/auth/drive',
+      'scope'           => 'https://www.googleapis.com/auth/drive.metadata.readonly',
       'response_type'   => 'code',
       'access_type'     => 'offline',
       'approval_prompt' => 'force'
