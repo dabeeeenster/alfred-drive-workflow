@@ -50,6 +50,7 @@ MIME_TYPE_ICONS = {
   'application/vnd.google-apps.spreadsheet'  => { :path => 'icons/sheet.png' },
   'application/vnd.google-apps.presentation' => { :path => 'icons/slide.png' },
   'application/vnd.google-apps.form'         => { :path => 'icons/form.png'  },
+  'application/vnd.google-apps.folder'       => { :path => 'icons/folder.png'  },
   'application/pdf'                          => { :path => 'icons/dummy.pdf', :type => 'fileicon' },
 }
 
@@ -524,8 +525,9 @@ begin
       folders = items.select { |item| item['mimeType'] == 'application/vnd.google-apps.folder' }
       folders.each { |item| parents_by_id[item['id']] = item }
 
-      files = items.reject { |item| item['mimeType'] == 'application/vnd.google-apps.folder' }
-      files = files.select { |item| item['title'] =~ filter_regex }
+      # We want to return folders too, so dont reject them
+      # files = items.reject { |item| item['mimeType'] == 'application/vnd.google-apps.folder' }
+      files = items.select { |item| item['title'] =~ filter_regex }
       files = files.sort { |lhs, rhs| rhs['modifiedDate'] <=> lhs['modifiedDate'] }
 
       res += files.map do |item|
